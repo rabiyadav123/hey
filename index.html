@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Birthday Wish</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f9e7dc;
+            color: #333;
+            padding: 20px;
+            margin: 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        h1 {
+            font-size: 2em;
+            color: #ff6f61;
+            margin: 20px 0;
+        }
+
+        p {
+            font-size: 1em;
+            margin: 15px 0;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 12px 20px;
+            font-size: 1em;
+            font-weight: bold;
+            color: white;
+            background-color: #28a745;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 15px;
+            transition: background-color 0.3s;
+        }
+
+        .button:hover {
+            background-color: #218838;
+        }
+
+        .no-button {
+            background-color: #dc3545;
+            position: absolute;
+            transition: top 0.5s, left 0.5s;
+            z-index: 1000;
+        }
+
+        .no-button:hover {
+            background-color: #c82333;
+        }
+
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 20px;
+            background-color: white;
+            border: 2px solid #333;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            text-align: center;
+            max-width: 90%;
+            width: 400px;
+        }
+
+        .popup h2 {
+            color: #ff6f61;
+            font-size: 1.5em;
+        }
+
+        .popup img {
+            max-width: 100%;
+            height: auto;
+            margin: 15px 0;
+            border-radius: 10px;
+        }
+
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 1.8em;
+            }
+
+            p {
+                font-size: 0.9em;
+            }
+
+            .button {
+                font-size: 0.9em;
+                padding: 10px 15px;
+            }
+
+            .popup h2 {
+                font-size: 1.3em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Will You Accept My Birthday Wish?</h1>
+    <p>Choose wisely! 😜</p>
+    <button class="button yes-button" onclick="showPopup('Yes')">Yes</button>
+    <button class="button no-button" onmouseover="moveButton()">No</button>
+
+    <!-- Popup -->
+    <div class="overlay"></div>
+    <div class="popup" id="popup">
+        <h2>Yay! 🎉</h2>
+        <p>Happy Birthday, Harsh! You're the best, and I hope your day is as awesome as you are! 🎂✨</p>
+        <img src="https://i.pinimg.com/736x/4b/b6/db/4bb6dbd96b11b2a5ab02b206b5bc4c33.jpg" alt="Cute hamster holding birthday candles">
+        <button class="button" onclick="closePopup()">Close</button>
+    </div>
+
+    <script>
+        function showPopup(answer) {
+            if (answer === 'Yes') {
+                document.querySelector('.overlay').style.display = 'block';
+                document.getElementById('popup').style.display = 'block';
+            }
+        }
+
+        function closePopup() {
+            document.querySelector('.overlay').style.display = 'none';
+            document.getElementById('popup').style.display = 'none';
+        }
+
+        function moveButton() {
+            const noButton = document.querySelector('.no-button');
+            const buttonWidth = noButton.offsetWidth;
+            const buttonHeight = noButton.offsetHeight;
+
+            const randomX = Math.random() * (window.innerWidth - buttonWidth);
+            const randomY = Math.random() * (window.innerHeight - buttonHeight);
+
+            // Ensure the button stays fully within the screen
+            const safeX = Math.max(0, Math.min(randomX, window.innerWidth - buttonWidth));
+            const safeY = Math.max(0, Math.min(randomY, window.innerHeight - buttonHeight));
+
+            noButton.style.left = safeX + 'px';
+            noButton.style.top = safeY + 'px';
+        }
+    </script>
+</body>
+</html>
